@@ -1,0 +1,25 @@
+<ul>
+    <h2>Myynnissä olevat tavarat:</h2>
+  <li ng-repeat="tavara in tavarat">
+      <a ng-href="#tavarat/{{tavara.id}}"<b>{{tavara.nimi}}: </b> {{tavara.hinta}}€ </a><button type="submit" class="btn btn-success">Osta</button>
+      
+    
+  </li>
+</ul>
+
+
+<p>Huom! Tavaran lisäys ei toimi tällä hetkell johtuen CORS-ongelmista Spring/Angularissa. POSTMAN:lla Post toimii.</p>
+
+
+<div ng-controller="TavaraController">
+    <h2>Lisää uusi tavara</h2>
+  <form novalidate class="simple-form">
+    Nimi: <input type="text" ng-model="tavara.nimi" /><br />
+    Hinta: <input type="text" ng-model="tavara.hinta" /><br />
+    Valmistaja_id: <input type="text" ng-model="tavara.valmistaja_id" /><br />
+    Kuvaus: <input type="text" ng-model="tavara.kuvaus" /><br />
+    Saatavilla: <input type="radio" ng-model="tavara.saatavilla" value="false" />Ei
+    <input type="radio" ng-model="tavara.saatavilla" value="true" />Kyllä<br />
+    <input type="submit" ng-click="lisaa()" value="Save" />
+  </form>
+</div>

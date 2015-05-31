@@ -1,0 +1,17 @@
+{
+  "name": "OstoskassiFront",
+  "version": "1.0.0",
+  "description": "AngularJS part of Tsoha2015K",
+  "main": "web.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Tsoha"
+  ],
+  "author": "Jesse",
+  "license": "ISC"
+}
