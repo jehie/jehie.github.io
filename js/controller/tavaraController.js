@@ -11,47 +11,42 @@ App.controller('TavaraController', function ($scope, $http, $routeParams) {
             });
 
 
+    $scope.poista = function (poistettava) {
+
+        var pois = {
+            id: poistettava
+        }
+        console.log(poistettava)
+        $.ajax({
+            url: "https://intense-tundra-7058.herokuapp.com/tavara/" + poistettava,
+            type: 'DELETE',
+            crossDomain: true,
+        });
+    }
+
+
     $scope.lisaa = function () {
-        
+
         var lisattava = {
-				nimi : $scope.tavara.nimi,
-				hinta : $scope.tavara.hinta,
-				kuvaus : $scope.tavara.kuvaus,
-                                valmistaja_id : $scope.tavara.valmistaja_id,
-                                saatavilla : "false",
-                                varastossa: "125"
-                       
-		};
-        
-        
-        console.log($scope.tavara.hinta)
-        console.log($scope.tavara.nimi)
-        
-        $http.post('https://intense-tundra-7058.herokuapp.com/tavara/', lisattava);
+            nimi: $scope.tavara.nimi,
+            hinta: $scope.tavara.hinta,
+            kuvaus: $scope.tavara.kuvaus,
+            valmistaja_id: $scope.tavara.valmistaja_id,
+            saatavilla: "false",
+            varastossa: "125"
+
+        };
+
+        $.ajax({
+            url: "https://intense-tundra-7058.herokuapp.com/tavara/",
+            type: "POST",
+            crossDomain: true,
+            data: lisattava,
+            dataType: "json"
+        });
+
     };
 
-
-
-//  $scope.tavarat = [
-//        {
-//            id: 1,
-//            nimi: 'Rolex',
-//            hinta: '55', 
-//        },
-//        {
-//            id: 2,
-//            nimi: 'Lautanen',
-//            hinta: '25', 
-//        }
-//    ];
-
-
-//    $scope.tav = [
-//        {
-//            id: 1,
-//            nimi: 'Rolex',
-//            hinta: '55',
-//        }];
 });
 
 

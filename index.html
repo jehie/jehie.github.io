@@ -22,8 +22,9 @@
                         <li><a href="#ostoskori">Ostoskori</a></li>
                         <li><a href="#contact">Yhteystiedot</a></li>
                         <li><a href="#kirjaudu">Kirjaudu</a></li>
+                        <li><a href="#rekisteroidy">Rekisteröidy</a></li>
                     </ul>
-                </div><!--/.nav-collapse -->
+                </div>
             </div>
         </nav>
 
@@ -32,18 +33,28 @@
         <p>a</p>
 
 
-        <div ng-view></div>
+        <div ng-view>
+
+            
+        </div>
+        <p></p>
+<button type="submit" ng-click="kirjauduUlos()" ng-show="kirjautunut" class="btn btn-success">Kirjaudu ulos</button>
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
         <script type="text/javascript" src="js/libs/angular/angular.min.js"></script>
         <script type="text/javascript" src="js/libs/angular-route/angular-route.min.js"></script>
+        <script type="text/javascript" src="js/libs/firebase.js"></script>
+        <script type="text/javascript" src="js/libs/angularfire.min.js"></script>
         <script type="text/javascript" src="js/app/app.js"></script>
         <script type="text/javascript" src="js/controller/tavaraController.js"></script>
         <script type="text/javascript" src="js/controller/ateriaController.js"></script>
         <script type="text/javascript" src="js/controller/ostosController.js"></script>
+        <script type="text/javascript" src="js/services/Auth.js"></script>
         <script type="text/javascript" src="js/controller/tavaranController.js"></script>
+        <script type="text/javascript" src="js/controller/userController.js"></script>
+
 
     </body>
 </html>

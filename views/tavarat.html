@@ -1,25 +1,51 @@
 <ul>
     <h2>Myynnissä olevat tavarat:</h2>
-  <li ng-repeat="tavara in tavarat">
-      <a ng-href="#tavarat/{{tavara.id}}"<b>{{tavara.nimi}}: </b> {{tavara.hinta}}€ </a><button type="submit" class="btn btn-success">Osta</button>
+  <li ng-repeat="tavara in tavarat | orderBy:tavara.id">
+      <a ng-href="#tavarat/{{tavara.id}}"<b>{{tavara.nimi}}: </b> {{tavara.hinta}}€ </a><button type="submit" class="btn btn-success">Osta</button><button type="submit" ng-click="poista(tavara.id)" ng-show="kirjautunut" class="btn btn-success">Delete</button>
       
     
   </li>
 </ul>
 
 
-<p>Huom! Tavaran lisäys ei toimi tällä hetkell johtuen CORS-ongelmista Spring/Angularissa. POSTMAN:lla Post toimii.</p>
+<p>Huom! Lisätessä tuote tai poistettaessa tuotetta, tulee sivu päivittää. </p>
 
 
-<div ng-controller="TavaraController">
+<div ng-controller="TavaraController" ng-show="kirjautunut">
     <h2>Lisää uusi tavara</h2>
-  <form novalidate class="simple-form">
-    Nimi: <input type="text" ng-model="tavara.nimi" /><br />
-    Hinta: <input type="text" ng-model="tavara.hinta" /><br />
-    Valmistaja_id: <input type="text" ng-model="tavara.valmistaja_id" /><br />
-    Kuvaus: <input type="text" ng-model="tavara.kuvaus" /><br />
+  <form name="uusiTavara" ng-controller="TavaraController">
+    Nimi: <input type="text" ng-model="tavara.nimi" name="nimi" ng-required="true" ng-minlength="5" ng-maxlength="1000" /><br />
+    <div role="alert">
+    <span class="error" ng-show="uusiTavara.nimi.$error.required">
+      <b>Anna tuotteelle nimi!</b></span>
+    <span class="error" ng-show="uusiTavara.nimi.$error.text">
+      <b>Antamasi nimi on virheellinen!</b></span>
+  </div>
+    <p></p>
+    Hinta: <input type="number" ng-model="tavara.hinta" name="hint" ng-required="true" ng-minlength="1" ng-maxlength="5"> €</p>
+<div role="alert">
+    <span class="error" ng-show="uusiTavara.hint.$error.required">
+      <b>Anna arvo</b></span>
+    <span class="error" ng-show="uusiTavara.hint.$error.number">
+      <b>Antamasi numero on vihreellinen!</b></span>
+  </div>
+    <p></p>
+    Valmistaja_id: <input type="number" ng-model="tavara.valmistaja_id" name="valm" ng-required="true" ng-minlength="1" ng-maxlength="5" /><br />
+    <div role="alert">
+    <span class="error" ng-show="uusiTavara.valm.$error.required">
+      <b>Anna arvo</b></span>
+    <span class="error" ng-show="uusiTavara.valm.$error.number">
+      <b>Antamasi numero on vihreellinen!</b></span>
+    </div><p></p>
+    <p>Kuvaus: <input type="text" ng-model="tavara.kuvaus" name="kuv" ng-required="true" ng-minlength="5" ng-maxlength="1000"></p>
+<div role="alert">
+    <span class="error" ng-show="uusiTavara.kuv.$error.required">
+      <b>Anna tuotteelle kuvaus!</b></span>
+    <span class="error" ng-show="uusiTavara.kuv.$error.text">
+      <b>Antamasi kuvaus on virheellinen!</b></span>
+  </div>
     Saatavilla: <input type="radio" ng-model="tavara.saatavilla" value="false" />Ei
     <input type="radio" ng-model="tavara.saatavilla" value="true" />Kyllä<br />
-    <input type="submit" ng-click="lisaa()" value="Save" />
+    <button type="submit" ng-disabled="uusiTavara.$invalid" ng-click="lisaa()" ng-show="kirjautunut" class="btn btn-success">Lisää tuote!</button>
   </form>
 </div>

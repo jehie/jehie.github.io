@@ -1,16 +1,7 @@
-<form>
-    <!-- Tekstikenttä käyttäjätunnukselle -->
-    <div class="form-group">
-        <label>Käyttäjätunnus</label>
-        <input type="text" class="form-control">
-    </div>
-
-    <!-- Salasanakenttä salasanalle -->
-    <div class="form-group">
-        <label>Salasana</label>
-        <input type="password" class="form-control">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
-</form>
+<div ><h1>Kirjaudu:</h1>
+    <b>Sähköposti:</b> <input ng-model="sahkoposti" class="form-control"> <p></p>
+    <b>Salasana: </b> <input type="password" ng-model="salasana" class="form-control" >
+    <p></p>
+    <button ng-click="kirjaudu()" class="btn btn-success"> Kirjaudu! </button>
+</div>
 
