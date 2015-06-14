@@ -1,4 +1,4 @@
-App.controller('UserController', function ($scope, $location, AuthenticationService) {
+App.controller('UserController', function ($scope, $location, AuthenticationService, $window) {
 
 
     $scope.rekisteroidy = function () {
@@ -7,7 +7,8 @@ App.controller('UserController', function ($scope, $location, AuthenticationServ
                 .then(function () {
                     AuthenticationService.kirjaudu($scope.uusiSahkoposti, $scope.uusiSalasana)
                             .then(function () {
-                                $location.path('/tavarat');
+                                $location.path('/');
+                                $window.location.reload();
                             });
                 })
                 .catch(function () {
@@ -18,7 +19,8 @@ App.controller('UserController', function ($scope, $location, AuthenticationServ
     $scope.kirjaudu = function () {
         AuthenticationService.kirjaudu($scope.sahkoposti, $scope.salasana)
                 .then(function () {
-                    $location.path('/tavarat');
+                    $location.path('/');
+                    $window.location.reload();
                 })
                 .catch(function () {
                     $scope.message = 'Väärä sähköpostiosoite tai salasana!'

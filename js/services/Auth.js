@@ -1,4 +1,4 @@
-App.service('AuthenticationService', function ($firebase, $firebaseAuth) {
+App.service('AuthenticationService', function ($firebase, $firebaseAuth, $route, $window) {
     var firebaseRef = new Firebase('https://ostoskassi.firebaseio.com/');
     var firebaseAuth = $firebaseAuth(firebaseRef);
 
@@ -9,6 +9,7 @@ App.service('AuthenticationService', function ($firebase, $firebaseAuth) {
 
     this.kirjauduUlos = function () {
         firebaseAuth.$unauth();
+        $window.location.reload();
     };
 
     this.kirjaudu = function (email, password) {
@@ -16,6 +17,7 @@ App.service('AuthenticationService', function ($firebase, $firebaseAuth) {
             email: email,
             password: password
         });
+        $window.location.reload();
     }
 
     this.rekisteroidy = function (email, password) {

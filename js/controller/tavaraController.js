@@ -1,4 +1,4 @@
-App.controller('TavaraController', function ($scope, $http, $routeParams) {
+App.controller('TavaraController', function ($scope, $http, $routeParams, $route) {
 
 
 
@@ -21,7 +21,14 @@ App.controller('TavaraController', function ($scope, $http, $routeParams) {
             url: "https://intense-tundra-7058.herokuapp.com/tavara/" + poistettava,
             type: 'DELETE',
             crossDomain: true,
+            success: update
         });
+        
+        
+    }
+    
+   function update(){
+        $route.reload();
     }
 
 
@@ -34,6 +41,7 @@ App.controller('TavaraController', function ($scope, $http, $routeParams) {
             valmistaja_id: $scope.tavara.valmistaja_id,
             saatavilla: "false",
             varastossa: "125"
+            
 
         };
 
@@ -42,9 +50,11 @@ App.controller('TavaraController', function ($scope, $http, $routeParams) {
             type: "POST",
             crossDomain: true,
             data: lisattava,
-            dataType: "json"
+            success: update,
+            dataType: "json",
+            
         });
-
+        
     };
 
 });

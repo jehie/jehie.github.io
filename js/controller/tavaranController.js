@@ -1,4 +1,4 @@
-App.controller('TavaranController', function ($scope, $http, $routeParams) {
+App.controller('TavaranController', function ($scope, $http, $routeParams, $route) {
 
     $scope.paivita = function () {
         console.log($scope.kirjautunut)
@@ -14,17 +14,21 @@ App.controller('TavaranController', function ($scope, $http, $routeParams) {
         };
 
 
-        //$http.post('https://intense-tundra-7058.herokuapp.com/tavara/', lisattava);
-
         $.ajax({
             url: "https://intense-tundra-7058.herokuapp.com/tavara/" + $scope.tavara.id,
             type: "POST",
             crossDomain: true,
             data: lisattava,
+            success: update,
             dataType: "json"
         })
 
     };
+
+
+    function update() {
+        $route.reload();
+    }
 
 
     $http.get('https://intense-tundra-7058.herokuapp.com/tavara/').
@@ -40,13 +44,6 @@ App.controller('TavaranController', function ($scope, $http, $routeParams) {
                         $scope.tavara = null;
                     }
                 }
-
-//                if ($scope.tavarat[$routeParams.idn.toLowerCase() - 1]) {
-//                    $scope.tavara = $scope.tavarat[$routeParams.idn.toLowerCase() - 1];
-//                    aseta();
-//                } else {
-//                    $scope.tavara = null;
-//                }
             });
 
     function aseta() {
