@@ -1,0 +1,19 @@
+<h2>{{getEmail}} tilaukset: </h2>
+<br>
+<table class="table table-hover">
+    
+    <td>Tilauksen ID</td>
+    <td>Tilauksen yhteishinta</td>
+    <td>Valittu Ateria</td>
+    <td>Toimitettu</td>
+    <tr ng-repeat="tilaus in tilaukset">
+
+        <td><a ng-href="#tilaukset/{{tilaus.id}}"><b>{{tilaus.id}} </b></td>
+        <td>{{ tilaus.yhteishinta}} €</td>
+        <td><a ng-href="#ateriat/{{tilaus.ateria_id}}"><b>{{etsiAteriaByID(tilaus.ateria_id)}} </b></td>
+        <td ng-if="tilaus.toimitettu">Kyllä</td>
+        <td ng-if="!tilaus.toimitettu">Ei</td>
+        <td ng-show="kirjautunut"><button type="submit"  ng-click="poistaTilaus(tilaus.id)" ng-show="tilaus.toimitettu==false" class="btn btn-danger">Peruuta tilaus</button>  </td>
+        <td ng-show="kirjautunut"><button type="submit"  ng-click="toimitaTilaus(tilaus.id)" ng-show="onkoAdmin === 'true' && tilaus.toimitettu==false" class="btn btn-success">Toimita tilaus</button>  </td>
+    </tr>
+</table>

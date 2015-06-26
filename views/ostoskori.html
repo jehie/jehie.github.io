@@ -1,10 +1,45 @@
-<ul>
+<div ng-controller="ostosController">
     <h2>Ostoskorissa olevat tuotteet:</h2>
-  <li ng-repeat="ostos in Ostokset">
-      <b>{{ostos.nimi}}: </b> {{ostos.hinta}}€ <button type="submit" class="btn btn-success">Poista</butt
-      
-    
-  </li>
-</ul>
-<button type="submit" class="btn btn-primary">Kassalle</button>
-<button type="submit" class="btn btn-primary">Jatka ostoksia</button>
+
+    <table class="table">
+        <td>Tuotteen nimi</td>
+        <td>Tuotteen hinta</td>
+        <td>Kappaletta ostoskorissa</td>
+        <td></td>
+        <tr ng-repeat="ostos in Ostokset">
+
+            <td><a ng-href="#tavarat/{{ostos.id}}"><b>{{ostos.nimi}} </b></td>
+            <td>{{ ostos.hinta}} €</td>
+            <td> {{ostos.kpl}} <button type="submit" ng-click="vahenna(ostos)" class="btn btn-success">-</button>
+                <button type="submit" ng-click="lisaa(ostos)"  class="btn btn-success">+</button></td>
+            <td ng-show="kirjautunut"> </td>
+        </tr>
+    </table>
+
+    <h2>Lennolle valittu ateria</h2>
+    <table class="table">
+        <td>Aterian nimi</td>
+        <td>Aterian hinta</td>
+        <tr>
+            <td><a ng-href="#ateriat/{{Ateria.id}}"><b>{{Ateria.nimi}} </b></td>
+            <td>{{ Ateria.hinta}} €</td>
+        </tr>
+    </table>
+
+    Valitse lento: <select ng-model="valittuLento" ng-options="lento.id as lento.tunnus for lento in lennot" ></select> 
+    <br>
+
+    <h3>Yhteensä: {{yhteissumma()}}€  </h3>
+
+
+    <div>
+
+    </div>
+
+
+
+
+    <button type="submit"  class="btn btn-primary" ng-click="tilaa()" ng-disabled="!ateriaValittu() && !tarpeeksiOstoksia()" ng-show="kirjautunut">Tilaa</button>
+    <button type="submit" class="btn btn-primary" ng-click="jatkaOstoksia()">Jatka ostoksia</button>
+    <button type="submit" class="btn btn-primary" ng-click="valitseAteria()">Vaihda ateriaa</button>
+</div>

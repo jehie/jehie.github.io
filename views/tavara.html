@@ -1,34 +1,52 @@
-Tavaran esittelysivu
+<div class="container">
+    <h2>{{nimi}}</h2>
 
-<form name="uusiTavara" ng-controller="TavaranController">
-<h2>{{tavara.nimi}}</h2>
-<p>
-Hinta:
-<input type="number" ng-model="hinta" name="hint" ng-required="true" ng-minlength="1" ng-maxlength="5"> €</p>
-<div role="alert">
-    <span class="error" ng-show="uusiTavara.hint.$error.required">
-      <b>Anna arvo</b></span>
-    <span class="error" ng-show="uusiTavara.hint.$error.number">
-      <b>Antamasi numero on vihreellinen!</b></span>
-  </div>
-<p>Tavara id: {{tavara.id}}</p>
-<p>Tuote lisätty: {{tavara.added}}</p>
-<p>Kuvaus: <input type="text" ng-model="kuvaus" name="kuv" ng-required="true" ng-minlength="5" ng-maxlength="1000"></p>
-<div role="alert">
-    <span class="error" ng-show="uusiTavara.kuv.$error.required">
-      <b>Anna tuotteelle kuvaus!</b></span>
-    <span class="error" ng-show="uusiTavara.kuv.$error.text">
-      <b>Antamasi kuvaus on virheellinen!</b></span>
-  </div>
-<p>Saatavilla: {{saatavilla}}</p>
-<p>Valmistaja_id: {{valmistaja_id}}</p>
-<p></p>Tuotteita varastossa: <input type="number" ng-model="varastossa" name="vara" ng-required="true" ng-minlength="1" ng-maxlength="5">
-<div role="alert">
-    <span class="error" ng-show="uusiTavara.vara.$error.required">
-      <b>Anna arvo</b></span>
-    <span class="error" ng-show="uusiTavara.vara.$error.number">
-      <b>Antamasi numero on vihreellinen!</b></span>
-  </div>
-<p></p>
-<button type="submit" ng-disabled="uusiTavara.$invalid" ng-click="paivita()" ng-show="kirjautunut" class="btn btn-success">Päivitä tuote!</button>
-</form>   
+    <dl class="dl-horizontal">
+        <dt>Hinta</dt>
+        <dd>{{hinta}} €</dd>
+        <dt>Kuvaus</dt>
+        <dd>{{kuvaus}}</dd>  
+        <dt>Varastossa</dt>
+        <dd>{{varastossa}} kpl</dd>
+        <dt>Valmistaja</dt>
+        <dd>{{etsiValmistaja(valmistaja_id)}}</dd>
+        <dt>Tavara lisätty</dt>
+        <dd>{{lisatty}}</dd>
+    </dl>
+</div>
+
+<div class="container">
+    <h2> Muokkaa tavaraa: {{nimi}}</h2>
+    <form name="uusiTavara" ng-controller="TavaranController" ng-show="onkoAdmin === 'true'">
+
+        <p>
+            Hinta:
+            <input type="number" ng-model="hinta" name="hint" ng-required="true" ng-minlength="1" ng-maxlength="5"> €</p>
+        <div role="alert">
+            <span class="error" ng-show="uusiTavara.hint.$error.required">
+                <b>Anna arvo</b></span>
+            <span class="error" ng-show="uusiTavara.hint.$error.number">
+                <b>Antamasi numero on vihreellinen!</b></span>
+        </div>
+        <p>Kuvaus: <input type="text" ng-model="kuvaus" name="kuv" ng-required="true" ng-minlength="5" ng-maxlength="1000"></p>
+        <div role="alert">
+            <span class="error" ng-show="uusiTavara.kuv.$error.required">
+                <b>Anna tuotteelle kuvaus!</b></span>
+            <span class="error" ng-show="uusiTavara.kuv.$error.text">
+                <b>Antamasi kuvaus on virheellinen!</b></span>
+        </div>
+        <p></p>Tuotteita varastossa: <input type="number" ng-model="varastossa" name="vara" ng-required="true" ng-minlength="1" ng-maxlength="5">
+        <div role="alert">
+            <span class="error" ng-show="uusiTavara.vara.$error.required">
+                <b>Anna arvo</b></span>
+            <span class="error" ng-show="uusiTavara.vara.$error.number">
+                <b>Antamasi numero on vihreellinen!</b></span>
+        </div>
+        <p></p>
+        <p>Saatavilla: {{saatavilla}}</p>
+        <input type="radio" name="saat" ng-model="saatavilla" ng-value="false" />Ei
+        <input type="radio" name="saat" ng-model="saatavilla" ng-value="true" />Kyllä<br />
+        <p></p>
+        <button type="submit" ng-disabled="uusiTavara.$invalid" ng-click="paivita()" ng-show="kirjautunut" class="btn btn-success">Päivitä tuote!</button>
+    </form>   
+</div>

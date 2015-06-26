@@ -2,16 +2,16 @@ var App = angular.module('Ostoskassi', ['firebase', 'ngRoute']);
 
 App.run(function (AuthenticationService, $rootScope) {
     $rootScope.kirjauduUlos = function () {
-        console.log("Kirjauduutaan ulos")
         AuthenticationService.kirjauduUlos();
-
     };
 
+    $rootScope.getEmail = AuthenticationService.getEmail();
+    $rootScope.onkoAdmin = AuthenticationService.onkoKayttajaAdmin();
     $rootScope.kirjautunut = AuthenticationService.onkoKirjautunut();
 });
 
 
-
+//Sovelluksen reittien hallinta
 App.config(function ($routeProvider) {
     $routeProvider
             .when('/', {
@@ -47,6 +47,14 @@ App.config(function ($routeProvider) {
             .when('/rekisteroidy', {
                 controller: 'UserController',
                 templateUrl: 'views/rekisteroidy.html'
+            })
+            .when('/tilaukset', {
+                controller: 'TilausController',
+                templateUrl: 'views/tilaukset.html'
+            })
+            .when('/tilaukset/:idn', {
+                controller: 'TilauksentiedotController',
+                templateUrl: 'views/tilauksentiedot.html'
             })
             .otherwise({
                 redirectTo: '/'

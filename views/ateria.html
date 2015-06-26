@@ -1,27 +1,39 @@
-Aterian esittelysivu
+<div class="container">
+    <h2>{{nimi}}</h2>
+    <dl class="dl-horizontal">
+        <dt>Hinta</dt>
+        <dd>{{hinta}} €</dd>
+        <dt>Kuvaus</dt>
+        <dd>{{kuvaus}}</dd>  
+        <dt>Ateria lisätty</dt>
+        <dd>{{lisatty}}</dd>
+    </dl>
+</div>
 
-<form name="muokattavaAteria" ng-controller="AterianController">
-<h2>{{ateria.nimi}}</h2>
-<p>
-Hinta:
-<input type="number" ng-model="hinta" name="hint" ng-required="true" ng-minlength="1" ng-maxlength="5"> €</p>
-<div role="alert">
-    <span class="error" ng-show="muokattavaAteria.hint.$error.required">
-      <b>Anna arvo</b></span>
-    <span class="error" ng-show="muokattavaAteria.hint.$error.number">
-      <b>Antamasi numero on vihreellinen!</b></span>
-  </div>
-<p>Tavara id: {{ateria.id}}</p>
-<p>Tuote lisätty: {{ateria.added}}</p>
-<p>Kuvaus: <input type="text" ng-model="kuvaus" name="kuv" ng-required="true" ng-minlength="5" ng-maxlength="1000"></p>
-<div role="alert">
-    <span class="error" ng-show="muokattavaAteria.kuv.$error.required">
-      <b>Anna tuotteelle kuvaus!</b></span>
-    <span class="error" ng-show="muokattavaAteria.kuv.$error.text">
-      <b>Antamasi kuvaus on virheellinen!</b></span>
-  </div>
-<p>Saatavilla: {{saatavilla}}</p>
-<p>Valmistaja_id: {{valmistaja_id}}</p>
-<p></p>
-<button type="submit" ng-disabled="muokattavaAteria.$invalid" ng-click="paivita()" ng-show="kirjautunut" class="btn btn-success">Päivitä tuote!</button>
-</form>   
+<div class="container">
+    <form name="muokattavaAteria" ng-controller="AterianController" ng-show="onkoAdmin === 'true'">
+        <h3>Muokkaa ateriaa</h3>
+        <p>
+            Hinta:
+            <input type="number" ng-model="hinta" name="hint" ng-value="5555" ng-required="true" ng-minlength="1" ng-maxlength="5"> €</p>
+        <div role="alert">
+            <span class="error" ng-show="muokattavaAteria.hint.$error.required">
+                <b>Anna arvo</b></span>
+            <span class="error" ng-show="muokattavaAteria.hint.$error.number">
+                <b>Antamasi numero on vihreellinen!</b></span>
+        </div>
+        <p>Tavara id: {{id}}</p>
+        <p>Kuvaus: <input type="text" ng-model="kuvaus" name="kuv" ng-required="true" ng-minlength="5" ng-maxlength="1000"></p>
+        <div role="alert">
+            <span class="error" ng-show="muokattavaAteria.kuv.$error.required">
+                <b>Anna tuotteelle kuvaus!</b></span>
+            <span class="error" ng-show="muokattavaAteria.kuv.$error.text">
+                <b>Antamasi kuvaus on virheellinen!</b></span>
+        </div>
+        <p>Saatavilla: {{saatavilla}}</p>
+        <input type="radio" name="saat" ng-model="saatavilla" ng-value="false" />Ei
+        <input type="radio" name="saat" ng-model="saatavilla" ng-value="true" />Kyllä<br />
+        <p></p>
+        <button type="submit" ng-disabled="muokattavaAteria.$invalid" ng-click="paivita()" class="btn btn-success">Päivitä tuote!</button>
+    </form>   
+</div>

@@ -1,6 +1,9 @@
+<!DOCTYPE html>
 <html>
     <head>
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        <meta charset="utf-8" />
+         <title>Ostoskassi - Tsoha 2015 Kesä</title>
     </head>
     <body ng-app="Ostoskassi">
 
@@ -19,26 +22,28 @@
                         <li class="active"><a href="#/">Etusivu</a></li>
                         <li><a href="#tavarat">Tavarat</a></li>
                         <li><a href="#ateriat">Ateriat</a></li>
-                        <li><a href="#ostoskori">Ostoskori</a></li>
+                        <li><a href="#ostoskori" ng-show="kirjautunut">Ostoskori</a></li>
                         <li><a href="#contact">Yhteystiedot</a></li>
-                        <li><a href="#kirjaudu">Kirjaudu</a></li>
+                        <li><a href="#tilaukset" ng-show="kirjautunut">Tilaukset</a></li>
+                        <li><a href="#kirjaudu" ng-hide="kirjautunut">Kirjaudu</a></li>
                         <li><a href="#rekisteroidy">Rekisteröidy</a></li>
+                        <li  ng-click="kirjauduUlos()" ng-show="kirjautunut"><a href="#">Kirjaudu ulos</a></li>
+
                     </ul>
                 </div>
             </div>
         </nav>
 
         <div></div>
-        <p>a</p>
-        <p>a</p>
+        <p>_</p>
+        <p>_</p><p></p>
 
 
-        <div ng-view>
+        <div ng-view class="container">
 
-            
+
         </div>
         <p></p>
-<button type="submit" ng-click="kirjauduUlos()" ng-show="kirjautunut" class="btn btn-success">Kirjaudu ulos</button>
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -47,15 +52,19 @@
         <script type="text/javascript" src="js/libs/angular-route/angular-route.min.js"></script>
         <script type="text/javascript" src="js/libs/firebase.js"></script>
         <script type="text/javascript" src="js/libs/angularfire.min.js"></script>
+
         <script type="text/javascript" src="js/app/app.js"></script>
+        <script type="text/javascript" src="js/services/Auth.js"></script>
         <script type="text/javascript" src="js/controller/tavaraController.js"></script>
         <script type="text/javascript" src="js/controller/ateriaController.js"></script>
         <script type="text/javascript" src="js/controller/ostosController.js"></script>
-        <script type="text/javascript" src="js/services/Auth.js"></script>
+        <script type="text/javascript" src="js/services/ostosService.js"></script>
+        <script type="text/javascript" src="js/services/lentoService.js"></script>
         <script type="text/javascript" src="js/controller/tavaranController.js"></script>
         <script type="text/javascript" src="js/controller/userController.js"></script>
         <script type="text/javascript" src="js/controller/aterianController.js"></script>
-
+        <script type="text/javascript" src="js/controller/tilausController.js"></script>
+        <script type="text/javascript" src="js/controller/tilauksentiedotController.js"></script>
 
     </body>
 </html>

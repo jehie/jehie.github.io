@@ -1,8 +1,8 @@
+//Kontrolleri kirjautumiseen ja rekisteröitymiseen
 App.controller('UserController', function ($scope, $location, AuthenticationService, $window) {
-
+    
 
     $scope.rekisteroidy = function () {
-        console.log("rekist");
         AuthenticationService.rekisteroidy($scope.uusiSahkoposti, $scope.uusiSalasana)
                 .then(function () {
                     AuthenticationService.kirjaudu($scope.uusiSahkoposti, $scope.uusiSalasana)
@@ -12,7 +12,7 @@ App.controller('UserController', function ($scope, $location, AuthenticationServ
                             });
                 })
                 .catch(function () {
-                    $scope.message = 'Virhe, yritä uudelleen';
+                    $scope.message = 'Virhe, yritä uudelleen! Tarkista sähköpostisi muoto!';
                 });
     }
 

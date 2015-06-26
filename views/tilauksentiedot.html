@@ -1,0 +1,17 @@
+<div class="container">
+    <table class="table table-hover">
+
+        <td>Tavaran nimi</td>
+        <td>kpl</td>
+        <td>Hinta yhteensä</td>
+        <tr ng-repeat="tilaus in tilausTiedot">
+            <td><a ng-href="#tavarat/{{tilaus.tavaraid}}"><b>{{etsiTavaraByID(tilaus.tavaraid).nimi}} </b></td>
+            <td> {{tilaus.kpl}} <button type="submit" ng-click="vahenna(tilaus)" class="btn btn-success">-</button>
+                <button type="submit" ng-click="lisaa(tilaus)"  class="btn btn-success">+</button></td>
+            <td> <b>{{laskeHinta(tilaus.tavaraid, tilaus.kpl)}}</b> €</td>
+            <td ng-show="kirjautunut"><button type="submit"  ng-click="poistaTilaus(tilaus.id)" ng-show="tilaus.toimitettu == false" class="btn btn-danger">Peruuta tilaus</button>  </td>
+        </tr>
+    </table>
+
+    <h3>Yhteensä: {{yhteissumma()}}€  </h3>
+</div>

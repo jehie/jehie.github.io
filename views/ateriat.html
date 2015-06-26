@@ -1,51 +1,50 @@
-<h2>Valittavissa olevat Ateriat:</h2>
-<ul>   
-  <li ng-repeat="ateria in Ateriat | orderBy:ateria.id">
-      <a ng-href="#ateriat/{{ateria.id}}"<b>{{ateria.nimi}}: </b> {{ateria.hinta}}€ </a><button type="submit" class="btn btn-success">Osta</button><button type="submit" ng-click="poista(ateria.id)" ng-show="kirjautunut" class="btn btn-success">Delete</button>
-      
-    
-  </li>
-</ul>
+<div class="container">
+    <h2>Valittavissa olevat Ateriat:</h2>
 
+    <table class="table table-hover">
 
-<p>Huom! Lisätessä tuote tai poistettaessa tuotetta, tulee sivu päivittää. </p>
+        <td>Aterian nimi</td>
+        <td>Aterian hinta</td>
+        <td ng-show="kirjautunut">Valitse ateria</td>
+        <td></td>
+        <tr ng-repeat="ateria in Ateriat| orderBy:ateria.id" ng-hide="ateria.saatavilla == false && onkoAdmin === 'false'">
 
+            <td><a ng-href="#ateriat/{{ateria.id}}"><b>{{ateria.nimi}} </b></td>
+            <td>{{ ateria.hinta}} €</td>
+            <td> <button type="submit" ng-click="valitseAteria(ateria)" ng-disabled="ateria.saatavilla == false" ng-show="kirjautunut" class="btn btn-success">Valitse</button></td>
+            <td ng-show="onkoAdmin === 'true'"><button type="submit"  ng-click="poista(ateria.id)" ng-disabled="onkoAteriaTilattu(ateria.id)" ng-show="onkoAdmin === 'true'" class="btn btn-danger">Poista ateria</button>  </td>
+        </tr>
+    </table>
+</div>
 
-<div ng-controller="AteriaController" ng-show="kirjautunut">
+<div ng-controller="AteriaController" ng-show="onkoAdmin === 'true'" class="container">
     <h2>Lisää uusi Ateria</h2>
-  <form name="uusiAteria" ng-controller="AteriaController">
-    Nimi: <input type="text" ng-model="ateria.nimi" name="nimi" ng-required="true" ng-minlength="5" ng-maxlength="1000" /><br />
-    <div role="alert">
-    <span class="error" ng-show="uusiAteria.nimi.$error.required">
-      <b>Anna tuotteelle nimi!</b></span>
-    <span class="error" ng-show="uusiAteria.nimi.$error.text">
-      <b>Antamasi nimi on virheellinen!</b></span>
-  </div>
-    <p></p>
-    Hinta: <input type="number" ng-model="ateria.hinta" name="hint" ng-required="true" ng-minlength="1" ng-maxlength="5"> €</p>
-<div role="alert">
-    <span class="error" ng-show="uusiAteria.hint.$error.required">
-      <b>Anna arvo</b></span>
-    <span class="error" ng-show="uusiAteria.hint.$error.number">
-      <b>Antamasi numero on vihreellinen!</b></span>
-  </div>
-    <p></p>
-    Valmistaja_id: <input type="number" ng-model="ateria.valmistaja_id" name="valm" ng-required="true" ng-minlength="1" ng-maxlength="5" /><br />
-    <div role="alert">
-    <span class="error" ng-show="uusiAteria.valm.$error.required">
-      <b>Anna arvo</b></span>
-    <span class="error" ng-show="uusiAteria.valm.$error.number">
-      <b>Antamasi numero on vihreellinen!</b></span>
-    </div><p></p>
-    <p>Kuvaus: <input type="text" ng-model="ateria.kuvaus" name="kuv" ng-required="true" ng-minlength="5" ng-maxlength="1000"></p>
-<div role="alert">
-    <span class="error" ng-show="uusiAteria.kuv.$error.required">
-      <b>Anna tuotteelle kuvaus!</b></span>
-    <span class="error" ng-show="uusiAteria.kuv.$error.text">
-      <b>Antamasi kuvaus on virheellinen!</b></span>
-  </div>
-    Saatavilla: <input type="radio" ng-model="ateria.saatavilla" value="false" />Ei
-    <input type="radio" ng-model="ateria.saatavilla" value="true" />Kyllä<br />
-    <button type="submit" ng-disabled="uusiAteria.$invalid" ng-click="lisaa()" ng-show="kirjautunut" class="btn btn-success">Lisää tuote!</button>
-  </form>
+    <form name="uusiAteria" ng-controller="AteriaController">
+        Nimi: <input type="text" ng-model="ateria.nimi" name="nimi" ng-required="true" ng-minlength="5" ng-maxlength="1000" /><br />
+        <div role="alert">
+            <span class="error" ng-show="uusiAteria.nimi.$error.required">
+                <b>Anna tuotteelle nimi!</b></span>
+            <span class="error" ng-show="uusiAteria.nimi.$error.text">
+                <b>Antamasi nimi on virheellinen!</b></span>
+        </div>
+        <p></p>
+        Hinta: <input type="number" ng-model="ateria.hinta" name="hint" ng-required="true" ng-minlength="1" ng-maxlength="5"> €</p>
+        <div role="alert">
+            <span class="error" ng-show="uusiAteria.hint.$error.required">
+                <b>Anna arvo</b></span>
+            <span class="error" ng-show="uusiAteria.hint.$error.number">
+                <b>Antamasi numero on vihreellinen!</b></span>
+        </div>
+        <p></p>
+        <p>Kuvaus: <input type="text" ng-model="ateria.kuvaus" name="kuv" ng-required="true" ng-minlength="5" ng-maxlength="1000"></p>
+        <div role="alert">
+            <span class="error" ng-show="uusiAteria.kuv.$error.required">
+                <b>Anna tuotteelle kuvaus!</b></span>
+            <span class="error" ng-show="uusiAteria.kuv.$error.text">
+                <b>Antamasi kuvaus on virheellinen!</b></span>
+        </div>
+        Saatavilla: <input type="radio" ng-model="ateria.saatavilla" value="false" />Ei
+        <input type="radio" ng-model="ateria.saatavilla" value="true" />Kyllä<br />
+        <button type="submit" ng-disabled="uusiAteria.$invalid" ng-click="lisaa()" ng-show="kirjautunut" class="btn btn-success">Lisää tuote!</button>
+    </form>
 </div>

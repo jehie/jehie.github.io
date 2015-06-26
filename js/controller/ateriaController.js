@@ -1,46 +1,67 @@
-App.controller('AteriaController', function ($scope, $http, $routeParams, $route) {
+//Kontrolleri aterioiden listaamiseen ja lisäämiseen
+App.controller('AteriaController', function ($scope, $http, $routeParams, $route, OstosService, $location) {
 
+    $scope.Ateriat = {};
+    $scope.TilattujenID = {};
+    
     $http.get('https://intense-tundra-7058.herokuapp.com/ateria/').
             success(function (data) {
-
                 $scope.Ateriat = data;
-                console.log($scope.Ateriat);
             });
 
+    //Hakee tilattujen Aterioiden ID:n REST-palvelusta
+    $http.get('https://intense-tundra-7058.herokuapp.com/ateria/tilatut').
+            success(function (data) {
+                $scope.TilattujenID = data;
+            });
 
+    //Poistaa Aterian REST-palvelun avulla
     $scope.poista = function (poistettava) {
 
         var pois = {
             id: poistettava
-        }
-        console.log(poistettava)
+        };
+
         $.ajax({
             url: "https://intense-tundra-7058.herokuapp.com/ateria/" + poistettava,
             type: 'DELETE',
             crossDomain: true,
             success: update
         });
-        
-        
+
+
     }
-    
-   function update(){
+
+    //Tarkistaa onko Ateriaa jo tilattu ja palauttaa true jos on.
+    $scope.onkoAteriaTilattu = function (tuote) {
+        for (var i = 0, max = $scope.TilattujenID.length; i < max; i++) {
+            if (tuote === $scope.TilattujenID[i].id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Lataa sivun uudelleen
+    function update() {
         $route.reload();
     }
 
+    //Asettaa valitun aterian ostosserviceen
+    $scope.valitseAteria = function (ateria) {
+        OstosService.setAteria(ateria);
+        $location.path('/ostoskori');
+    }
 
+    //Lisää uuden Aterian
     $scope.lisaa = function () {
 
         var lisattava = {
             nimi: $scope.ateria.nimi,
             hinta: $scope.ateria.hinta,
             kuvaus: $scope.ateria.kuvaus,
-            Aterianvalmistaja_id: $scope.ateria.valmistaja_id,
-            saatavilla: "false",          
-
+            saatavilla: $scope.ateria.saatavilla,
         };
-        
-        console.log(lisattava)
 
         $.ajax({
             url: "https://intense-tundra-7058.herokuapp.com/ateria/",
@@ -49,9 +70,8 @@ App.controller('AteriaController', function ($scope, $http, $routeParams, $route
             data: lisattava,
             success: update,
             dataType: "json",
-            
         });
-       update() 
+        update()
     };
 
 });
