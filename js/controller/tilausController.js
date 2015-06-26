@@ -9,12 +9,12 @@ App.controller('TilausController', function ($scope, $http, $routeParams, $route
             success(function (data) {
                 $scope.ateriat = data;
             });
-
+            if ($scope.onkoAdmin === 'false') {
     $http.get('https://intense-tundra-7058.herokuapp.com/tilaus/' + $scope.getEmail).
             success(function (data) {
                 $scope.tilaukset = data;
             });
-
+            }
     if ($scope.onkoAdmin === 'true') {
         $http.get('https://intense-tundra-7058.herokuapp.com/tilaus/').
                 success(function (data) {
