@@ -10,7 +10,7 @@ App.controller('ostosController', function ($scope, OstosService, $location, $ht
     $scope.valittuLento = "Valitse!"
     $scope.Ostokset = OstosService.getOstoskori();
     $scope.Ateria = OstosService.getAteria();
-    
+
     $scope.valitseAteria = function () {
         $location.path('/ateriat');
     }
@@ -47,11 +47,15 @@ App.controller('ostosController', function ($scope, OstosService, $location, $ht
     $scope.tilaa = function () {
         var varma = confirm("Oletko varma?");
         if (varma) {
-            
+
             var ateriaID = $scope.Ateria.id;
-            
-            if($scope.Ateria.id===undefined){
-                ateriaID=1;
+
+            if ($scope.Ateria.id === undefined) {
+                ateriaID = 1;
+            }
+
+            if ($scope.valittuLento === 'Valitse!') {
+                $scope.valittuLento = 1;
             }
 
             var lisattava = {
@@ -68,7 +72,7 @@ App.controller('ostosController', function ($scope, OstosService, $location, $ht
                 data: lisattava,
                 dataType: "json",
             });
-            
+
             for (var i = 0; i < $scope.Ostokset.length; i++) {
                 var tuoteID = $scope.Ostokset[i].id;
                 var kpl = $scope.Ostokset[i].kpl;

@@ -25,7 +25,7 @@
                         <li><a href="#ostoskori" ng-show="kirjautunut">Ostoskori</a></li>
                         <li><a href="#tilaukset" ng-show="kirjautunut">Tilaukset</a></li>
                         <li><a href="#kirjaudu" ng-hide="kirjautunut">Kirjaudu</a></li>
-                        <li><a href="#rekisteroidy">Rekisteröidy</a></li>
+                        <li><a href="#rekisteroidy" ng-show="!kirjautunut">Rekisteröidy</a></li>
                         <li  ng-click="kirjauduUlos()" ng-show="kirjautunut"><a href="#">Kirjaudu ulos</a></li>
 
                     </ul>

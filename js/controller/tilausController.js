@@ -4,18 +4,21 @@ App.controller('TilausController', function ($scope, $http, $routeParams, $route
     $scope.admin = AuthenticationService;
     $scope.ateriat = {};
     $scope.tilaukset = {};
+    $scope.sahkoposti= $scope.getEmail;
 
     $http.get('https://intense-tundra-7058.herokuapp.com/ateria/').
             success(function (data) {
                 $scope.ateriat = data;
             });
             if ($scope.onkoAdmin === 'false') {
+               
     $http.get('https://intense-tundra-7058.herokuapp.com/tilaus/' + $scope.getEmail).
             success(function (data) {
                 $scope.tilaukset = data;
             });
             }
     if ($scope.onkoAdmin === 'true') {
+        $scope.sahkoposti= "Kaikkien tilaajien ";
         $http.get('https://intense-tundra-7058.herokuapp.com/tilaus/').
                 success(function (data) {
                     $scope.tilaukset = data;

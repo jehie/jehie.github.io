@@ -39,7 +39,7 @@
 
 
 
-    <button type="submit"  class="btn btn-primary" ng-click="tilaa()" ng-disabled="!ateriaValittu() && !tarpeeksiOstoksia()" ng-show="kirjautunut">Tilaa</button>
+    <button type="submit"  class="btn btn-primary" ng-click="tilaa()" ng-disabled="!ateriaValittu() && !tarpeeksiOstoksia() && valittuLento==='Valitse!'" ng-show="kirjautunut">Tilaa</button>
     <button type="submit" class="btn btn-primary" ng-click="jatkaOstoksia()">Jatka ostoksia</button>
     <button type="submit" class="btn btn-primary" ng-click="valitseAteria()">Vaihda ateriaa</button>
 </div>
